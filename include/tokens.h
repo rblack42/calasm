@@ -1,19 +1,10 @@
 #pragma once
 
 enum token {
-    EOL,
-    COLON,
-    COMMA,
-    LBR,
-    RBR,
+    ENDF,
+    ENDL,
+    CHAR,
     IDENT,
     NUMBER,
-    DATADEC,
-    CODEDEC,
-    DB,
-    DW,
-    BYTE,
-    WORD,
-    ERROR
+    UNKNOWN
 };
-

@@ -1,27 +1,34 @@
 #include <iostream>
 #include <string>
-#include <fstream>
 
-#include "Parser.h"
-#include "tokens.h"
+#include "Lexer.h"
+#include "Token.h"
 
-int main( int argc, char *argv[] ) {
-    std::string fname = argv[1];
-    std::string line;
-    std::ifstream fin;
-    Parser p;
-    p.set_debug();
-    token tok;
+std::string version = "0.2";
+std::string fname;
 
-    fin.open(fname);
-    
-    while( std::getline( fin, line ) ) {
-        std::cout << "parsing: " << line << std::endl;
-        p.set( line );
-        while( (tok = p.get_token()) != EOL ) {
-            std::cout << "\t" << p.get_tok_string() << std::endl;
-        }
-        std::cout << "\tEOL" << std::endl;
+int main(int argc, char *argv[]) {
+    int exit_code;
+    Token tok;
+
+    std::cout << "CALasm (v" << version << ")" << std::endl;
+
+    if(argc != 2) {
+        std::cerr << "\tno input file provided" << std::endl;
+        exit(0);
     }
-    fin.close();
+    // create lexer
+    Lexer l(argv[1]);
+    l.set_debug();
+    
+    // run the scanner
+
+    std::cout << "\trunning..." << std::endl;
+    while( true ) {
+        tok = l.get();
+        if(tok.tval == ENDF) break;
+    }
+
+    std::cout << "\tprocessing finished..." << std::endl;
+    return 0;
 }
